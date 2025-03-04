@@ -1,9 +1,14 @@
+// nuxt.config.ts
 export default defineNuxtConfig({
   modules: ["@pinia/nuxt", "@nuxtjs/tailwindcss"],
-
-  pinia: {
-    autoImports: ["defineStore", "storeToRefs"],
+  runtimeConfig: {
+    public: {
+      // Using DummyJSON API as the data source
+      dummyJsonApi: "https://dummyjson.com",
+    },
   },
-
-  compatibilityDate: "2025-03-04",
+  // Enable reactivity in the global fetch API
+  experimental: {
+    reactivityTransform: true,
+  },
 });
