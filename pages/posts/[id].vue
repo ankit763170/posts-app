@@ -1,10 +1,9 @@
-<!-- pages/posts/[id].vue -->
 <template>
   <div>
-    <button @click="goBack" class="text-blue-500 mb-4 hover:underline">
+    <button @click="goBack" class="text-blue-500 m-4 hover:underline">
       &larr; Back to Posts
     </button>
-    <div v-if="post" class="bg-white p-6 rounded shadow">
+    <div v-if="post" class="bg-white p-6 m-10 rounded-10 shadow">
       <h1 class="text-3xl font-bold mb-4">{{ post.title }}</h1>
       <p class="mb-4">{{ post.body }}</p>
       <!-- Display tags if available -->
@@ -33,7 +32,10 @@ const post = ref(null);
 const postsStore = usePostsStore();
 
 const loadPost = async () => {
+  // Convert route param to a number (if needed by your API)
   const id = Number(route.params.id);
+  // Add a console log for debugging the ID value
+  console.log("Loading post with id:", id);
   post.value = await postsStore.fetchPostById(id);
 };
 

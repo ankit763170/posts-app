@@ -1,4 +1,3 @@
-<!-- pages/posts.vue -->
 <template>
   <div class="mx-5 my-5">
     <h1 class="text-3xl font-bold mb-6">Posts</h1>
@@ -13,7 +12,7 @@
         @click="goToPost(post.id)"
       />
     </div>
-    <div v-else class="text-center text-gray-500">Loading posts...</div>
+    <div v-else class="text-center text-gray-800">Loading posts...</div>
   </div>
 </template>
 
@@ -21,13 +20,19 @@
 import { onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { usePostsStore } from "~/stores/posts";
-import PostCard from "../components/Postcard.vue";
+// Make sure the component filename is exactly "PostCard.vue"
+import PostCard from "../../components/Postcard.vue";
 
 const postsStore = usePostsStore();
 const router = useRouter();
 
 const goToPost = (id) => {
-  router.replace(`/posts/${id}`);
+  // Using router.push with error handling to catch NavigationDuplicated errors
+  router.push(`/posts/${id}`).catch((err) => {
+    if (err.name !== "NavigationDuplicated") {
+      console.error("Navigation error:", err);
+    }
+  });
 };
 
 onMounted(async () => {
